@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -54,7 +55,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(viewModel: LocationViewModel) {
-	var selectedTab by remember { mutableIntStateOf(0) }
+	var selectedTab by rememberSaveable { mutableIntStateOf(0) }
 	
 	Scaffold(
 		bottomBar = {
@@ -88,8 +89,8 @@ fun MainScreen(viewModel: LocationViewModel) {
 fun TrackerMapScreen(viewModel: LocationViewModel) {
 	val context = LocalContext.current
 	val latestLocation by viewModel.latestLocation.collectAsState(initial = null)
-	var isServiceRunning by remember { mutableStateOf(false) }
-	var selectedInterval by remember { mutableLongStateOf(10000L) }
+	var isServiceRunning by rememberSaveable { mutableStateOf(false) }
+	var selectedInterval by rememberSaveable { mutableLongStateOf(10000L) }
 	
 	val permissions = mutableListOf(
 		Manifest.permission.ACCESS_FINE_LOCATION,
